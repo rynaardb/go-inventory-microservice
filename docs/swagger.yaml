@@ -1,0 +1,229 @@
+basePath: /api/v1
+definitions:
+  models.Error:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  models.Item:
+    properties:
+      active:
+        type: boolean
+      barcode:
+        type: string
+      categoryID:
+        type: string
+      color:
+        type: string
+      cost:
+        type: integer
+      id:
+        type: string
+      image:
+        type: string
+      name:
+        type: string
+      price:
+        type: integer
+      sku:
+        type: string
+      soldByType:
+        type: string
+      trackStock:
+        type: boolean
+    type: object
+  models.ItemRequest:
+    properties:
+      active:
+        type: boolean
+      barcode:
+        type: string
+      categoryID:
+        type: string
+      color:
+        type: string
+      cost:
+        type: integer
+      image:
+        type: string
+      name:
+        type: string
+      price:
+        type: integer
+      sku:
+        type: string
+      soldByType:
+        type: string
+      trackStock:
+        type: boolean
+    type: object
+  models.Message:
+    properties:
+      message:
+        type: string
+    type: object
+host: localhost:8805
+info:
+  contact: {}
+  description: List APIs of Store Service
+  termsOfService: http://swagger.io/terms/
+  title: Inventory Service API Document
+  version: "1.0"
+paths:
+  /items:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a item by ID
+      parameters:
+      - description: JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Item object
+        in: body
+        name: item
+        required: true
+        schema:
+          $ref: '#/definitions/models.Item'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Message'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Delete a item by ID
+      tags:
+      - items
+    get:
+      consumes:
+      - application/json
+      description: Get a item by ID parameter
+      parameters:
+      - description: JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Item ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Item'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Get a item by ID parameter
+      tags:
+      - items
+    post:
+      consumes:
+      - application/json
+      description: Add a new item
+      parameters:
+      - description: JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Item request object
+        in: body
+        name: item
+        required: true
+        schema:
+          $ref: '#/definitions/models.ItemRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Message'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Add a new item
+      tags:
+      - items
+    put:
+      consumes:
+      - application/json
+      description: Update an existing item
+      parameters:
+      - description: JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Item object
+        in: body
+        name: item
+        required: true
+        schema:
+          $ref: '#/definitions/models.Item'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Message'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Update an existing item
+      tags:
+      - items
+  /items/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get a item by ID
+      parameters:
+      - description: JWT
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Item ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Item'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Get a item by ID
+      tags:
+      - items
+swagger: "2.0"
